@@ -1,0 +1,52 @@
+name: Django CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}          # Secret for PostgreSQL database name
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}      # Secret for PostgreSQL username
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}  # Secret for PostgreSQL password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U ${{ secrets.POSTGRES_USER}}" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
+          
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r order_alerts/requirements.txt
+
+    - name: Run migrations
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/django_db
+      run: |
+        python manage.py migrate
+
+    - name: Run tests
+      run: |
+        python manage.py test
