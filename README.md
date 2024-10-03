@@ -45,10 +45,10 @@ This project is a Django-based backend system for managing customers and orders,
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/order-alerts-backend.git
+git clone https://github.com/MrBytes10/Customer-Order-Alerts-Backend-v2
 
 # Navigate to the project directory
-cd order-alerts-backend
+cd Customer-Order-Alerts-Backend-v2
 
 # Install dependencies
 pip install -r requirements.txt
@@ -88,4 +88,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Contact Information
 MrBytes10 - a.m.ndeti@gmail.com
 
-Project Link: https://github.com/yourusername/order-alerts-backend
+Project Link: https://github.com/MrBytes10/Customer-Order-Alerts-Backend-v2
