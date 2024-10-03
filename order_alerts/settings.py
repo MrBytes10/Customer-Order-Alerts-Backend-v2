@@ -60,8 +60,16 @@ CORS_ALLOWED_ORIGINS = [
 # REST FRAMEWORK //Adding OpenID Connect Authentication
 
 OAUTH2_PROVIDER = {
-    'SCOPES': {'read': 'Read scope', 'write': 'Write scope'}
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 72000,  # Token expiration time
+    'AUTHORIZATION_CODE_EXPIRE_SECONDS': 72300, #
+    'ALLOWED_REDIRECT_URI_SCHEMES': ['http', 'https'],
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+        'groups': 'Access to groups'
+    }
 }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
